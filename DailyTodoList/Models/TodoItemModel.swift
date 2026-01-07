@@ -23,6 +23,17 @@ final class TodoItem {
     var startDate: Date?
     var endDate: Date?
     
+    // 指向父任務
+    var parentTask: TodoItem?
+    
+    // 包含的子任務
+    @Relationship(deleteRule: .cascade, inverse: \TodoItem.parentTask)
+    var subTasks: [TodoItem]? = []
+    
+    // 標記是否為今日隨機選中的目標
+    var isTargetedForToday: Bool = false
+    var taskType: String = "normal"      // "normal" 或 "randomChild"
+    
     // 關聯：所屬資料夾
     var folder: Folder?
 
@@ -31,5 +42,6 @@ final class TodoItem {
         self.isDaily = isDaily
         self.startDate = startDate
         self.endDate = endDate
+        self.subTasks = []
     }
 }

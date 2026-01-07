@@ -12,6 +12,7 @@ import SwiftData
 final class Folder {
     var name: String
     var createdAt: Date
+    var isSystem: Bool = false
     
     // 指向父資料夾（如果是最上層則為 nil）
     var parent: Folder?
@@ -24,8 +25,9 @@ final class Folder {
     @Relationship(deleteRule: .cascade, inverse: \TodoItem.folder)
     var items: [TodoItem]? = []
 
-    init(name: String) {
+    init(name: String, isSystem: Bool = false) {
         self.name = name
+        self.isSystem = isSystem
         self.createdAt = Date()
         self.subFolders = []
         self.items = []
